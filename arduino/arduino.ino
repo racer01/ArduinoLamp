@@ -1,4 +1,5 @@
 #include <IRremote.h>
+#include <math.h>
 /*
 LACI TAVIRANYITO GOMBOK
 1FE48B7 MUTE
@@ -57,10 +58,10 @@ void loop()
 {
 	if (irrecv.decode(&results))
 	{
-		switch(results.value)
+		switch (results.value)
 		{
 			case 0x1FE7887:		//ON/OFF - Laci
-			case 0xFD00FF:	//ON-OFF -
+			case 0xFD00FF:		//ON-OFF - Szikra
 
 			break;
 
@@ -69,7 +70,11 @@ void loop()
 			break;
 
 			case 0x1FE40BF:
-			changeColor(black);
+			animate(green, dly);
+			break;
+
+			case 0x1FEC03F:
+			animate(red, dly);
 			break;
 
 		}
@@ -80,27 +85,32 @@ void loop()
 void changeColor(int newcolor[])
 {
 	//if(pf == 0 && zf == 0 && kf == 0) { for (int i = 0; i < pwr; i++){ analogWrite(piros,i); analogWrite(zold,i); analogWrite(kek,i); delay(dly); } pf=1; zf=1; kf=1; on=1; }
-	for(int i = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		color[i] = newcolor[i];
 		analogWrite(pin[i], color[i]);
 	}
 }
 
-boolean closeEnough(int a[], int b[], int length)
+void animate(int newcolor[], double fadeRate)
 {
-	boolean r = false;
-	for(int i = 0; i < length; i++)
+	int dist = 0;
+	do
 	{
-		if( ( (int)abs(a[i]-b[i]) ) < 2)
+		for (int i = 0; i < 3; i++)
 		{
-			r = true;
+			dist = newcolor[i] - color[i];	// a két érték közötti előjeles távolság
+
+			if (dist >= 0)
+			{
+				color[i] += (int)ceil( dist * fadeRate);
+			}
+			else if (dist < 0)
+			{
+				color[i] += (int)floor( dist * fadeRate);
+			}
+			analogWrite(pin[i], color[i]);
 		}
-	}
-	return r;
-}
-
-void animate()
-{
-
+		delay(3);
+	} while (color != newcolor);
 }
