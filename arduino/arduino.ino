@@ -38,11 +38,14 @@ decode_results results;
 
 int color[] = {0, 0, 0};			// jelenlegi érték
 byte max = 255;						// 0-255 Fenyerosseg
-double dly = 0.2;
+double dly = 0.05;
 
 int red[] = {255, 0, 0};
 int green[] = {0, 255, 0};
+int blue [] = {0, 0, 255};
+
 int black[] = {0, 0, 0};
+int white[] = {255, 255, 255};
 
 void setup()
 {
@@ -94,23 +97,52 @@ void changeColor(int newcolor[])
 
 void animate(int newcolor[], double fadeRate)
 {
-	int dist = 0;
 	do
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			dist = newcolor[i] - color[i];	// a két érték közötti előjeles távolság
+			int dist = newcolor[i] - color[i];	// a két érték közötti előjeles távolság
 
 			if (dist >= 0)
 			{
+				Serial.print("+color0: "); Serial.println(color[0]);
+				Serial.print("+color1: "); Serial.println(color[1]);
+				Serial.print("+color2: "); Serial.println(color[2]);
+
+				Serial.print("+newcolor0: "); Serial.println(newcolor[0]);
+				Serial.print("+newcolor1: "); Serial.println(newcolor[1]);
+				Serial.print("+newcolor2: "); Serial.println(newcolor[2]);
+
 				color[i] += (int)ceil( dist * fadeRate);
 			}
 			else if (dist < 0)
 			{
+				Serial.print("-color0: "); Serial.println(color[0]);
+				Serial.print("-color1: "); Serial.println(color[1]);
+				Serial.print("-color2: "); Serial.println(color[2]);
+
+				Serial.print("-newcolor0: "); Serial.println(newcolor[0]);
+				Serial.print("-newcolor1: "); Serial.println(newcolor[1]);
+				Serial.print("-newcolor2: "); Serial.println(newcolor[2]);
+
 				color[i] += (int)floor( dist * fadeRate);
 			}
 			analogWrite(pin[i], color[i]);
 		}
 		delay(3);
-	} while (color != newcolor);
+		Serial.print("0 "); Serial.println(!(color[0] != newcolor[0]));
+		Serial.print("1 "); Serial.println(!(color[1] != newcolor[1]));
+		Serial.print("2 "); Serial.println(!(color[2] != newcolor[2]));
+
+
+
+		//TÖKJÓSZÍN: [204, 51, 0]
+
+	} while (
+				(color[0] != newcolor[0])
+				 ||
+				(color[1] != newcolor[1])
+				 ||
+				(color[2] != newcolor[2])
+		   );
 }
