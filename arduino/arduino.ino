@@ -2,27 +2,30 @@
 #include <math.h>
 
 // --------------------------- CONFIG -------------------------
-int pin[] = {9, 10, 5};				// tű kiosztás
-int RECV_PIN = 2;					//Infraport beallitasa
+const int pin[] = {9, 10, 5};				// tű kiosztás
+const int RECV_PIN = 2;					//Infraport beallitasa
 IRrecv irrecv(RECV_PIN);
 decode_results results;
 // ---------------------------\CONFIG -------------------------
 
 
 int color[] = {0, 0, 0};			// jelenlegi érték
-byte max = 255;						// 0-255 Fenyerosseg
+const byte max = 255;						// 0-255 Fenyerosseg
 double dly = 0.001;
 
-int red[] = {255, 0, 0};
-int green[] = {0, 255, 0};
-int blue[] = {0, 0, 255};
+const int red[] = {255, 0, 0};
+const int green[] = {0, 255, 0};
+const int blue[] = {0, 0, 255};
 
-int poop[] = {89, 48, 1};
-int pink[] = {255, 20, 147};
-int soCool[] = {204, 51, 0};
+const int poop[] = {255, 255, 0};
+const int pink[] = {255, 20, 147};
+const int soCool[] = {204, 51, 0};
 
-int black[] = {0, 0, 0};
-int white[] = {255, 255, 255};
+const int turkiz[] = {0, 255,255};
+const int lila[] = {255, 0, 255};
+
+const int black[] = {0, 0, 0};
+const int white[] = {255, 255, 255};
 
 void setup()
 {
@@ -46,38 +49,44 @@ void loop()
 			break;
 
 			case 0x1FE48B7:			//MUTE		- LACI
-			case 0xFD40bF:			//PLAY/PAUSE- SZIKRA
+			case 0xFD30CF:			//0 		- SZIKRA
 			animate(white, dly);
 			break;
 
 			case 0x1FE807F:			//PHOTO		- LACI
-			case 0xFD20DF:			//RPT		- SZIKRA
+			case 0xFD08F7:			//1		- SZIKRA
 			animate(red, dly);
 			break;
 
 			case 0x1FE40BF:			//MUSIC		- LACI
-			case 0xFDA05F:			//CH-		- SZIKRA
+			case 0xFD08F7:			//2		- SZIKRA
 			animate(green, dly);
 			break;
 
 			case 0x1FEC03F:			//MOVIE		- LACI
-			case 0xFD609F:			//CH+		- SZIKRA
+			case 0xFD8877:			//3		- SZIKRA
 			animate(blue, dly);
 			break;
 
 			case 0x1FE20DF:			//PLAY/PAUSE- LACI
-			case 0xFD10EF:			//EQ		- SZIKRA
+			case 0xFD28D7:			//4		- SZIKRA
 			animate(poop, dly);
 			break;
 
 			case 0x1FEA05F:			//UP		- LACI
-			case 0xFD906F:			//VOL-		- SZIKRA
 			animate(soCool, dly);
+			break;
+			
+			case 0xFDA857:			//5		- SZIKRA
+			animate(turkiz, dly);
 			break;
 
 			case 0x1FE609F:
-			case 0xFD50AF:
 			animate(pink, dly);
+			break;
+			
+			case 0xFD6897:			//6		- SZIKRA
+			animate(lila, dly);
 			break;
 
 		}
