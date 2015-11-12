@@ -17,12 +17,12 @@ const int red[] = {255, 0, 0};
 const int green[] = {0, 255, 0};
 const int blue[] = {0, 0, 255};
 
-const int poop[] = {255, 255, 0};
 const int pink[] = {255, 20, 147};
 const int soCool[] = {204, 51, 0};
 
-const int turkiz[] = {0, 255,255};
-const int lila[] = {255, 0, 255};
+const int cyan[] = {0, 255, 255};
+const int purple[] = {255, 0, 255};
+const int yellow[] = {255, 255, 0};
 
 const int black[] = {0, 0, 0};
 const int white[] = {255, 255, 255};
@@ -70,7 +70,7 @@ void loop()
 
 			case 0x1FE20DF:			//PLAY/PAUSE- LACI
 			case 0xFD28D7:			//4		- SZIKRA
-			animate(poop, dly);
+			animate(yellow, dly);
 			break;
 
 			case 0x1FEA05F:			//UP		- LACI
@@ -78,7 +78,7 @@ void loop()
 			break;
 			
 			case 0xFDA857:			//5		- SZIKRA
-			animate(turkiz, dly);
+			animate(cyan, dly);
 			break;
 
 			case 0x1FE609F:
@@ -86,23 +86,13 @@ void loop()
 			break;
 			
 			case 0xFD6897:			//6		- SZIKRA
-			animate(lila, dly);
+			animate(purple, dly);
 			break;
 
 		}
 		irrecv.resume();
 	}
 }
-// --------------------------- DEPRECATED ---------------------
-void changeColor(int newcolor[])
-{
-	for (int i = 0; i < 3; i++)
-	{
-		color[i] = newcolor[i];
-		analogWrite(pin[i], color[i]);
-	}
-}
-// ---------------------------\DEPRECATED ---------------------
 
 void animate(int newcolor[], double fadeRate)
 {
