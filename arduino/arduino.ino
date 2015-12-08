@@ -9,25 +9,25 @@ decode_results results;
 // ---------------------------\CONFIG -------------------------
 
 
-int color[] = {0, 0, 0};			// jelenlegi értékek
-int newColor[] = {0, 0, 0};			// leendő értékek
+byte color[] = {0, 0, 0};			// jelenlegi értékek
+byte newColor[] = {0, 0, 0};			// leendő értékek
 const byte max = 255;						// 0-255 fényerősség
 double fadeRate = 0.001;					// késleltetés (3ms-enként)
 bool animate = false;				// animáljon-e
 
-const int red[] = {255, 0, 0};
-const int green[] = {0, 255, 0};
-const int blue[] = {0, 0, 255};
+const byte red[] = {255, 0, 0};
+const byte green[] = {0, 255, 0};
+const byte blue[] = {0, 0, 255};
 
-const int pink[] = {255, 20, 147};
-const int soCool[] = {204, 51, 0};
+const byte pink[] = {255, 20, 147};
+const byte soCool[] = {204, 51, 0};
 
-const int cyan[] = {0, 255, 255};
-const int purple[] = {255, 0, 255};
-const int yellow[] = {255, 255, 0};
+const byte cyan[] = {0, 255, 255};
+const byte purple[] = {255, 0, 255};
+const byte yellow[] = {255, 255, 0};
 
-const int black[] = {0, 0, 0};
-const int white[] = {255, 255, 255};
+const byte black[] = {0, 0, 0};
+const byte white[] = {255, 255, 255};
 
 void setup()
 {
@@ -116,10 +116,10 @@ int absCeil(double in)
 		return (int)floor(in);
 }
 
-void changeColor(const int nc[])
+void changeColor(const byte nc[])
 {
 	animate = true;
-	for(int i = 0; i < 3; i++)
+	for(byte i = 0; i < 3; i++)
 	{
 		newColor[i] = nc[i];
 	}
