@@ -61,12 +61,12 @@ void loop()
 			break;
 
 			case 0x1FE40BF:			//MUSIC		- LACI
-			case 0xFD08F7:			//2		- SZIKRA
+			case 0xFD8877:			//2		- SZIKRA
 			changeColor(green);
 			break;
 
 			case 0x1FEC03F:			//MOVIE		- LACI
-			case 0xFD8877:			//3		- SZIKRA
+			case 0xFD48B7:			//3		- SZIKRA
 			changeColor(blue);
 			break;
 
@@ -116,7 +116,7 @@ int absCeil(double in)
 		return (int)floor(in);
 }
 
-void changeColor(int nc[])
+void changeColor(const int nc[])
 {
 	animate = true;
 	for(int i = 0; i < 3; i++)
