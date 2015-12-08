@@ -72,23 +72,23 @@ void loop()
 
 			case 0x1FE20DF:			//PLAY/PAUSE- LACI
 			case 0xFD28D7:			//4		- SZIKRA
-			animate(yellow, dly);
+			changeColor(yellow);
 			break;
 
 			case 0x1FEA05F:			//UP		- LACI
-			animate(soCool, dly);
+			changeColor(soCool);
 			break;
-			
+
 			case 0xFDA857:			//5		- SZIKRA
-			animate(cyan, dly);
+			changeColor(cyan);
 			break;
 
 			case 0x1FE609F:
-			animate(pink, dly);
+			changeColor(pink);
 			break;
-			
+
 			case 0xFD6897:			//6		- SZIKRA
-			animate(purple, dly);
+			changeColor(purple);
 			break;
 
 		}
