@@ -9,9 +9,11 @@ decode_results results;
 // ---------------------------\CONFIG -------------------------
 
 
-int color[] = {0, 0, 0};			// jelenlegi érték
-const byte max = 255;						// 0-255 Fenyerosseg
-double dly = 0.001;
+int color[] = {0, 0, 0};			// jelenlegi értékek
+int newColor[] = {0, 0, 0};			// leendő értékek
+const byte max = 255;						// 0-255 fényerősség
+double fadeRate = 0.001;					// késleltetés (3ms-enként)
+bool animate = false;				// animáljon-e
 
 const int red[] = {255, 0, 0};
 const int green[] = {0, 255, 0};
@@ -45,27 +47,27 @@ void loop()
 		{
 			case 0x1FE7887:			//ON-OFF	- Laci
 			case 0xFD00FF:			//ON-OFF	- Szikra
-			animate(black, dly);
+			changeColor(black);
 			break;
 
 			case 0x1FE48B7:			//MUTE		- LACI
 			case 0xFD30CF:			//0 		- SZIKRA
-			animate(white, dly);
+			changeColor(white);
 			break;
 
 			case 0x1FE807F:			//PHOTO		- LACI
 			case 0xFD08F7:			//1		- SZIKRA
-			animate(red, dly);
+			changeColor(red);
 			break;
 
 			case 0x1FE40BF:			//MUSIC		- LACI
 			case 0xFD08F7:			//2		- SZIKRA
-			animate(green, dly);
+			changeColor(green);
 			break;
 
 			case 0x1FEC03F:			//MOVIE		- LACI
 			case 0xFD8877:			//3		- SZIKRA
-			animate(blue, dly);
+			changeColor(blue);
 			break;
 
 			case 0x1FE20DF:			//PLAY/PAUSE- LACI
@@ -92,26 +94,33 @@ void loop()
 		}
 		irrecv.resume();
 	}
-}
 
-void animate(int newcolor[], double fadeRate)
-{
-	do
+	if (animate)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 3 ; i++)
 		{
-			int dist = newcolor[i] - color[i];	// a két érték közötti előjeles távolság
-
-			if (dist >= 0)
-			{
-				color[i] += (int)ceil( dist * fadeRate);
-			}
-			else if (dist < 0)
-			{
-				color[i] += (int)floor( dist * fadeRate);
-			}
+			color[i] += absCeil( (newColor[i] - color[i]) * fadeRate );
 			analogWrite(pin[i], color[i]);
 		}
+		if ( (color[0] == newColor[0]) && (color[1] == newColor[1]) && (color[2] == newColor[2]) )
+			animate = false;
 		delay(3);
-	} while ( (color[0] != newcolor[0]) || (color[1] != newcolor[1]) || (color[2] != newcolor[2]) );
+	}
+}
+
+int absCeil(double in)
+{
+	if (in >= 0)
+		return (int)ceil(in);
+	else if (in < 0)
+		return (int)floor(in);
+}
+
+void changeColor(int nc[])
+{
+	animate = true;
+	for(int i = 0; i < 3; i++)
+	{
+		newColor[i] = nc[i];
+	}
 }
