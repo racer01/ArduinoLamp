@@ -59,12 +59,12 @@ void loop()
 			break;
 
 			case 0x1FE40BF:			//MUSIC		- LACI
-			case 0xFD0877:			//2		- SZIKRA
+			case 0xFD8877:			//2		- SZIKRA
 			animate(green, dly);
 			break;
 
 			case 0x1FEC03F:			//MOVIE		- LACI
-			case 0xFD88B7:			//3		- SZIKRA
+			case 0xFD48B7:			//3		- SZIKRA
 			animate(blue, dly);
 			break;
 
@@ -94,7 +94,7 @@ void loop()
 	}
 }
 
-void animate(int newcolor[], double fadeRate)
+void animate(const int newcolor[], double fadeRate)
 {
 	do
 	{
